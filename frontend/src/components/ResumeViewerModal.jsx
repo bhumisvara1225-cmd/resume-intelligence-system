@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { X, User, Briefcase, FileText, Crosshair } from 'lucide-react';
 import './ResumeViewerModal.css';
 
@@ -24,7 +24,7 @@ const ResumeViewerModal = ({ isOpen, onClose, candidate, roleFilter }) => {
     if (!targetRole) return;
     setLoadingScore(true);
     try {
-      const response = await axios.get(`/api/resumes/${candidate.candidate_id}/score?role=${encodeURIComponent(targetRole)}`);
+      const response = await api.get(`/api/resumes/${candidate.candidate_id}/score?role=${encodeURIComponent(targetRole)}`);
       setAtsScore(response.data.ats_score);
       setMatchingKeywords(response.data.matching_keywords || []);
     } catch (err) {

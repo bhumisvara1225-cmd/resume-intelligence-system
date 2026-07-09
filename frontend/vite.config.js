@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
   server: {
+    // Local dev: proxy /api requests to local FastAPI
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:8080',
@@ -13,11 +14,7 @@ export default defineConfig(({ mode }) => ({
     }
   },
   build: {
-    outDir: '../app/static',
+    outDir: 'dist',
     emptyOutDir: true,
-  },
-  define: {
-    // Expose VITE_API_URL to the frontend (set in Vercel environment variables)
-    __API_URL__: JSON.stringify(process.env.VITE_API_URL || ''),
   }
 }))

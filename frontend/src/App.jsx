@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import axios from 'axios'
+import api from './api'
 import './App.css'
 import Header from './components/Header'
 import FilterSidebar from './components/FilterSidebar'
@@ -72,7 +72,7 @@ function App() {
     // Fetch remaining via API
     for (const c of needsAPI) {
       try {
-        const res = await axios.get(
+        const res = await api.get(
           `/api/resumes/${c.candidate_id}/score?role=${encodeURIComponent(role)}`
         );
         accumulated[c.candidate_id] = {
@@ -99,7 +99,7 @@ function App() {
       if (selectedSkills.length > 0) params.append('skill', selectedSkills[0]);
 
       const url = '/api/resumes/' + (params.toString() ? '?' + params.toString() : '');
-      const response = await axios.get(url);
+      const response = await api.get(url);
       setCandidates(response.data);
 
       // Re-score if a role is already active

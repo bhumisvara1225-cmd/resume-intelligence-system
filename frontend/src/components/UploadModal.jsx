@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Upload, X, File as FileIcon, CheckCircle, AlertCircle } from 'lucide-react';
 import './UploadModal.css';
 
@@ -67,7 +67,7 @@ const UploadModal = ({ isOpen, onClose, onUploadSuccess }) => {
     files.forEach(f => formData.append('files', f));
 
     try {
-      await axios.post('/api/resumes/upload_bulk', formData, {
+      await api.post('/api/resumes/upload_bulk', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
