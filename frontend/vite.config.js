@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
   server: {
     proxy: {
@@ -15,5 +15,9 @@ export default defineConfig({
   build: {
     outDir: '../app/static',
     emptyOutDir: true,
+  },
+  define: {
+    // Expose VITE_API_URL to the frontend (set in Vercel environment variables)
+    __API_URL__: JSON.stringify(process.env.VITE_API_URL || ''),
   }
-})
+}))

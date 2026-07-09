@@ -5,6 +5,7 @@ pymysql
 PyMuPDF
 python-docx
 google-generativeai
+groq
 python-dotenv
 python-multipart
 pydantic
